@@ -7,12 +7,15 @@ import { decreaseZoom } from './display/view';
 
 //const provider = new ethers.providers.InfuraProvider('mainnet');
 //const provider = new ethers.providers.InfuraProvider('rinkeby');
-const provider = new ethers.providers.InfuraProvider('goerli');
+//const provider = new ethers.providers.InfuraProvider('goerli');
+const provider = new ethers.providers.JsonRpcProvider("https://rpc.ankr.com/fantom_testnet");
+
 const iface = new Interface(contractABI);
 // const contractAddress = '0xC3891fc8375901F78fCc2743922B237C960C3147'; // Ethereum Contract
 // const contractAddress = '0x59a72E06F7E5b56d53F2C381043C3dEAc4916804';  // Rinkeby Contract
 // const contractAddress = '0x36EA1619918eB1610dB0d30c8EE5688b34f40ad7';  // Goerli Contract
- const contractAddress = '0x5613826d8432a3816aFB4bfd18598a2eC82566dd';  // Goerli Contract (Revenue Sharing V1)
+// const contractAddress = '0x5613826d8432a3816aFB4bfd18598a2eC82566dd';  // Goerli Contract (Revenue Sharing V1)
+const contractAddress = '0xD4A94F45E497f3909a6Db8697cf5Eb50bc52A6f1';
 
 const contract = new ethers.Contract(contractAddress, contractABI, provider);
 let metamaskProvider;
@@ -21,6 +24,9 @@ let metamaskContract;
 let sentChunk;
 let currentAdress;
 let signer;
+
+const chainID=4002; //tesnet fantom
+const chainIDHex='0x0FA2';
 
 
 
@@ -100,7 +106,9 @@ export const getChunk = async (id) => {
 };
 
 export const getAllChunks = async () => {
+    console.log("toto1");
     let data = await contract.queryFilter(contract.filters.Chunk());
+    console.log("toto2");
     let allChunks = [];
     data.forEach((d) => {
         let data = d.data;
@@ -188,12 +196,12 @@ function handleChainChanged(_chainId) {
 }
 async function checkChain() {
     const { chainId } = await metamaskProvider.getNetwork();
-    if (chainId != 1) {
+    if (chainId != chainID) {
         window.ethereum.request({
             method: 'wallet_switchEthereumChain',
             params: [
                 {
-                    chainId: '0x5', // Change the ID to change the network - works for both login and tx
+                    chainId: chainIDHex, // Change the ID to change the network - works for both login and tx
                 },
             ],
         });

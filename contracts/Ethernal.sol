@@ -21,11 +21,12 @@ interface IERC2981 {
         returns (address receiver, uint256 royaltyAmount);
 }
 
-contract Moonolith is ERC1155U, IERC2981, Ownable {
+contract Building is ERC1155U, IERC2981, Ownable {
     using Base64 for *;
     using Strings for uint256;
     using SafeMath for uint256;
     uint256 _currentTokenId = 1;
+    
 
     bool private _gaslessTrading = true;
     uint256 private _royaltyPartsPerMillion = 50_000;
@@ -42,22 +43,78 @@ contract Moonolith is ERC1155U, IERC2981, Ownable {
     event Chunk(uint256 indexed id, uint256 indexed position, uint256 ymax, uint256 ymaxLegal, uint256 nbpix, bytes image);
     mapping(uint256 => uint256) chunkBlocks;
 
-    address public constant creatorAddress = 0x68fCc097Fe3cFE23144af775334706244dddcA21;
+    struct balanceParameters {
+        uint256[] _tokenIds;
+        uint256 pixelsMinted;
+        uint256 balances;
+    }
+
+    address[] public allAdresses;
+
+    mapping(address => balanceParameters) playerInfo;
+
+    address public constant creatorAddress1 = 0x68fCc097Fe3cFE23144af775334706244dddcA21;
+    address public constant creatorAddress2 = 0x8a0a62b42ac67976960dE3e9ab0f1FF429715165;
 
     function draw2438054C(uint256 position, uint256 ymax, uint256 nbpix, bytes calldata image) external payable {
         require(ymax * 1000000  <= 192 * 1000000 + _klonSum * _threshold, "Out of board");
         require(msg.value >= nbpix * _pricePerPix, "Not enough eth");
         require(nbpix > 0, "Cannot send empty mark");
         uint256 index = _currentTokenId;
-        _klonSum += nbpix;
+
+
         emit Chunk(_currentTokenId, position, ymax, 192 * 1000000 + _klonSum * _threshold, nbpix, image);
         emit TransferSingle(msg.sender, address(0), msg.sender, index, 1);
         _setOwner(index, msg.sender);
+
+        _klonSum += nbpix;
+
+        if(playerInfo[msg.sender].pixelsMinted == 0)
+        {
+         balanceParameters memory updateParameters;         
+         updateParameters.pixelsMinted = nbpix;
+         updateParameters.balances = 0;
+         playerInfo[msg.sender] = updateParameters;
+         playerInfo[msg.sender]._tokenIds.push(_currentTokenId);
+         allAdresses.push(msg.sender);
+        }
+        else {
+         playerInfo[msg.sender]._tokenIds.push(_currentTokenId);
+         playerInfo[msg.sender].pixelsMinted+= nbpix;
+        }       
+
+        updateBalance();
+
         unchecked {
             index++;
         }
         _currentTokenId = index;
     }
+
+
+   function updateBalance() public {
+
+      for (uint i=0; i < allAdresses.length; i++) {
+        uint256 bal = 7*_pricePerPix*(playerInfo[allAdresses[i]].pixelsMinted)/(_klonSum*100);
+        playerInfo[allAdresses[i]].balances = bal;
+      }
+
+   }
+
+   function getPlayerInfo(address adr) public view returns (uint256 pixelsMinted, uint256 balance, uint256[] memory tokenIds){
+       return (playerInfo[adr].pixelsMinted,  playerInfo[adr].balances, playerInfo[adr]._tokenIds);
+   }
+
+
+    function claimFee() public {
+        
+        uint256 fee = playerInfo[msg.sender].balances;
+
+        payable(msg.sender).transfer(fee);
+        require(fee > 0, "No fee to claim");
+        playerInfo[msg.sender].balances = 0;
+    }
+
 
     function totalSupply() public view returns (uint256) {
         unchecked {
@@ -132,7 +189,8 @@ contract Moonolith is ERC1155U, IERC2981, Ownable {
 
 
     function withdraw() external {
-        _withdraw(creatorAddress, address(this).balance);
+        _withdraw(creatorAddress1, address(this).balance/2);
+        _withdraw(creatorAddress2, address(this).balance/2);
     }
 
     function _withdraw(address _address, uint256 _amount) private {
