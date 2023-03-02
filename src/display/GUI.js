@@ -48,9 +48,12 @@ export let GUICatalog = {
     selectorB: { fileName: 'palette/selector1B', type: 'GUI', display: false },
     palette: { fileName: 'palette/palette1giga', type: 'palette', display: false },
     faqButtonClose: { fileName: 'faq/faqButtonClose', x: 328, y: 3, type: 'FAQ', display: false },    
-    claimBtn: { fileName: 'ftm/Claim', x: 327, y: 20, type: 'Claim', display: true },
+    /*claimBtn: { fileName: 'ftm/Claim', x: 327, y: 20, type: 'Claim', display: true },
     pixelMinted: { fileName: 'ftm/High_Score', x: 327, y: 160, type: 'PIX', display: true },
-    faqButtonOpen: { fileName: 'faq/faqButtonOpen', x: 327, y: 0, type: 'FAQ', display: false },
+    faqButtonOpen: { fileName: 'faq/faqButtonOpen', x: 327, y: 0, type: 'FAQ', display: false },*/
+    claimBtn: { fileName: 'ftm/Claim', x: 327, y: 0, type: 'Claim', display: true },
+    pixelMinted: { fileName: 'ftm/High_Score', x: 327, y: 13, type: 'PIX', display: true },
+    faqButtonOpen: { fileName: 'faq/faqButtonOpen', x: 327, y: 23, type: 'FAQ', display: false },
 };
 
 export function displayShareScreen() {
