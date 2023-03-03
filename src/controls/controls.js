@@ -131,7 +131,7 @@ export async function clickManager(e) {
     }else if (isInSquare(mousePos, 0, GUICatalog.claimBtn.img.width, 0, GUICatalog.claimBtn.img.height, 'claimBtn', 'GUICatalog')) {
 
         let balance = await getBalance();
-        let text = "You can claim " + balance +" Eth";
+        let text = "You can claim " + balance +" FTM";
         if (confirm(text) == true) {
             await claimFee();
         } else {

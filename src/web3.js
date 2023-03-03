@@ -7,15 +7,16 @@ import { decreaseZoom } from './display/view';
 
 //const provider = new ethers.providers.InfuraProvider('mainnet');
 //const provider = new ethers.providers.InfuraProvider('rinkeby');
-//const provider = new ethers.providers.InfuraProvider('goerli');
-const provider = new ethers.providers.JsonRpcProvider("https://rpc.ankr.com/fantom_testnet");
+//const provider = new ethers.providers.InfuraProvider('goerli'); //https://eth-goerli.public.blastapi.io
+//const provider = new ethers.providers.JsonRpcProvider("https://rpc.ankr.com/eth_goerli");
+const provider = new ethers.providers.Web3Provider(window.ethereum);
 
 const iface = new Interface(contractABI);
 // const contractAddress = '0xC3891fc8375901F78fCc2743922B237C960C3147'; // Ethereum Contract
 // const contractAddress = '0x59a72E06F7E5b56d53F2C381043C3dEAc4916804';  // Rinkeby Contract
-// const contractAddress = '0x36EA1619918eB1610dB0d30c8EE5688b34f40ad7';  // Goerli Contract
+// const contractAddress = '0x6435D51e30AA2222eBA481c8AC6F743B018690F9';  // Goerli Contract
 // const contractAddress = '0x5613826d8432a3816aFB4bfd18598a2eC82566dd';  // Goerli Contract (Revenue Sharing V1)
-const contractAddress = '0xD4A94F45E497f3909a6Db8697cf5Eb50bc52A6f1';
+const contractAddress = '0xdafc9e904dc674a37161ef02e9fcab99095a46f3';
 
 const contract = new ethers.Contract(contractAddress, contractABI, provider);
 let metamaskProvider;
@@ -27,6 +28,9 @@ let signer;
 
 const chainID=4002; //tesnet fantom
 const chainIDHex='0x0FA2';
+
+//const chainID=5; //tesnet fantom
+//const chainIDHex='0x05';
 
 
 
@@ -106,9 +110,8 @@ export const getChunk = async (id) => {
 };
 
 export const getAllChunks = async () => {
-    console.log("toto1");
+    checkChain();
     let data = await contract.queryFilter(contract.filters.Chunk());
-    console.log("toto2");
     let allChunks = [];
     data.forEach((d) => {
         let data = d.data;
@@ -148,11 +151,12 @@ export async function getBalance(){
     checkChain();
     await metamaskProvider.send('eth_requestAccounts', []);
     currentAdress = await signer.getAddress()
-    let balance = await contract.balanceOf(currentAdress,1);
-    return balance;
+    let balance = await contract.getPlayerInfo(currentAdress);    
+    return parseInt(balance.balance._hex,16)/(1000000000);
 }
 
 export async function getMetaData() {
+    checkChain();
     let metadata = await contract.getMonolithInfo();
     return { nbKlon: metadata[2].toNumber(), threshold: metadata[1].toNumber(), nbChunks: metadata[0].toNumber() };
 }

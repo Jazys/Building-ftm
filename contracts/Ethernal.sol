@@ -30,7 +30,7 @@ contract Building is ERC1155U, IERC2981, Ownable {
 
     bool private _gaslessTrading = true;
     uint256 private _royaltyPartsPerMillion = 50_000;
-    uint256 public _pricePerPix = 250000000 gwei;
+    uint256 public _pricePerPix = 2500000 gwei;
 
     string public constant name = 'Fantom Board';
     string public constant symbol = 'FTMB';
