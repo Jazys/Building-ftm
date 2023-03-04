@@ -95,11 +95,18 @@ contract Building is ERC1155U, IERC2981, Ownable {
    function updateBalance() public {
 
       for (uint i=0; i < allAdresses.length; i++) {
-        uint256 bal = 7*_pricePerPix*(playerInfo[allAdresses[i]].pixelsMinted)/(_klonSum*100);
-        playerInfo[allAdresses[i]].balances = bal;
+        uint256 bal = _pricePerPix.mul(7).mul(playerInfo[allAdresses[i]].pixelsMinted).div(100000000000).div(_klonSum);
+        playerInfo[allAdresses[i]].balances += bal;
       }
 
    }
+
+   function division(uint256 decimalPlaces, uint256 numerator, uint256 denominator) public pure returns(uint256 quotient, uint256 remainder, string memory result) {
+        uint256 factor = 10**decimalPlaces;
+        quotient  = numerator / denominator;
+        remainder = (numerator * factor / denominator) % factor;
+        result = string(abi.encodePacked(quotient.toString(), '.', remainder.toString()));
+    }
 
    function getPlayerInfo(address adr) public view returns (uint256 pixelsMinted, uint256 balance, uint256[] memory tokenIds){
        return (playerInfo[adr].pixelsMinted,  playerInfo[adr].balances, playerInfo[adr]._tokenIds);

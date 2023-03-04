@@ -16,7 +16,7 @@ const iface = new Interface(contractABI);
 // const contractAddress = '0x59a72E06F7E5b56d53F2C381043C3dEAc4916804';  // Rinkeby Contract
 // const contractAddress = '0x6435D51e30AA2222eBA481c8AC6F743B018690F9';  // Goerli Contract
 // const contractAddress = '0x5613826d8432a3816aFB4bfd18598a2eC82566dd';  // Goerli Contract (Revenue Sharing V1)
-const contractAddress = '0xdafc9e904dc674a37161ef02e9fcab99095a46f3';
+const contractAddress = '0x191d4162B316D3BBF53445D434FfcF89D4cc5342';
 
 const contract = new ethers.Contract(contractAddress, contractABI, provider);
 let metamaskProvider;
