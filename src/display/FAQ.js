@@ -13,7 +13,7 @@ export let FAQCatalog = {
     stars: { name: 'stars', parallax: 0.1, startX: 0, startY: 0 },
     stratus2: { name: 'stratus', parallax: 0.25, startX: 0, startY: 732 },
     stars2: { name: 'stars', parallax: 0.1, startX: 0, startY: 300 },
-    FAQ: { name: 'FAQ', parallax: 0, startX: 0, startY: 0 },
+    FAQ: { name: 'FAQ', parallax: 0, startX: 50, startY: 0 },
 };
 
 export function displayFAQ(type) {
