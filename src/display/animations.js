@@ -18,7 +18,7 @@ export let animCatalog = {
     introRunC: { type: 'intro', startX: -25, startY: 1, display: false, loop: false, layer: 1, base64: introRunC },
     introRunD: { type: 'intro', startX: -5, startY: 13, display: false, loop: false, layer: 1, base64: introRunD },
     postMonolith: { type: 'intro', startX: 71, startY: -5, display: false, loop: false, layer: 1, base64: postMonolith },
-    autourDuFeu: { type: 'postIntro', startX: 67, startY: -9, display: false, loop: true, layer: 1, base64: autourDuFeu },
+    //autourDuFeu: { type: 'postIntro', startX: 67, startY: -9, display: false, loop: true, layer: 1, base64: autourDuFeu },
     //twitter: { type: 'continual', startX: 121, startY: 83, display: true, loop: true, layer: 0, base64: twitter },
     duck: { type: 'continual', startX: 0, startY: 750, display: true, loop: true, layer: 0, base64: duck },
     discordOn: { type: 'onMouse', startX: 38, startY: 46, display: false, loop: false, layer: -1, base64: discordOn },

@@ -30,7 +30,7 @@ export let imageCatalog = {
     gitOnStatic: { startX: 38, startY: 7, layer: -1, type: 'landscape', fileName: 'gitOnStatic', display: false },
     moon: { startX: 141, startY: 161, layer: 1, type: 'landscape', fileName: 'moon', display: true },
     panneauDecor: { startX: 292, startY: 178, layer: 1, type: 'landscape', fileName: 'landscape/panneauDecor', display: false },
-    TibonomEmporte: { startX: 109, startY: -30, layer: 1, type: 'TibonomEmporte', fileName: 'TibonomEmporte', display: false },
+    //TibonomEmporte: { startX: 109, startY: -30, layer: 1, type: 'TibonomEmporte', fileName: 'TibonomEmporte', display: false },
     FAQ: { type: 'FAQ', fileName: 'faq/faqTextDefault', display: false },
     faqTextMetamask: { type: 'FAQ', fileName: 'faq/faqTextMetamask', display: false }
 };
@@ -48,9 +48,9 @@ export function updateImageCatalog() {
             thisImage.x = thisImage.startX + Const.MARGIN_LEFT - viewPosX;
             if (introState) thisImage.y = thisImage.y + Const.MONOLITH_LINES - monolithDisplayHeightIntro;
         } else if (thisImage.type === 'TibonomEmporte') {
-            thisImage.y = thisImage.startY + renderHeight + viewPosY - Const.MONOLITH_LINES - Const.MARGIN_BOTTOM;
-            thisImage.x = thisImage.startX + Const.MARGIN_LEFT - viewPosX;
-            if (introState) thisImage.y = thisImage.y + Const.MONOLITH_LINES - monolithDisplayHeightIntro;
+            //thisImage.y = thisImage.startY + renderHeight + viewPosY - Const.MONOLITH_LINES - Const.MARGIN_BOTTOM;
+            //thisImage.x = thisImage.startX + Const.MARGIN_LEFT - viewPosX;
+            //if (introState) thisImage.y = thisImage.y + Const.MONOLITH_LINES - monolithDisplayHeightIntro;
         }
     }
 

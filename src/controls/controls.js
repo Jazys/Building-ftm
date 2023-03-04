@@ -121,9 +121,7 @@ function keyManager(e){
 export async function clickManager(e) {
     let mousePos = mousePosInGrid(e);
     if (firstInteraction) { playMusic(), firstInteraction = false }
-    console.log(e);
-    console.log(FAQ)
-
+  
     if(FAQ){
         if (isInSquare(mousePos, 0, GUICatalog.faqButtonOpen.img.width, 0, GUICatalog.faqButtonOpen.img.height, 'faqButtonOpen', 'GUICatalog')) 
             exitFAQ();

@@ -75,7 +75,7 @@ export async function launchIntro() {
         finalSkip();
         launchAnim('postMonolith');
         await new Promise((resolve) => setTimeout(resolve, animCatalog.postMonolith.totalDelay));
-        launchAnim('autourDuFeu');
+        //launchAnim('autourDuFeu');
         introState = false;
     }, 650 * Math.log(Const.MONOLITH_LINES - 7));
 }
@@ -91,7 +91,7 @@ export function skipIntro(force = false) {
     animCatalog.collision.display = false;
     imageCatalog.moon.display = false;
     unlockScroll();
-    launchAnim('autourDuFeu');
+   // launchAnim('autourDuFeu');
     setInitialViewPos();
     finalSkip();
     introState = false;
@@ -100,7 +100,7 @@ export function skipIntro(force = false) {
 function finalSkip() {
     GUICatalog.skipIntro.display = false;
     GUICatalog.faqButtonOpen.display = true;
-    imageCatalog.TibonomEmporte.display = false;
+    //imageCatalog.TibonomEmporte.display = false;
     imageCatalog.titleLogo.display = false;
     toggleMusic();
     unlockControls();

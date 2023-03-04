@@ -35,7 +35,7 @@ export function initDisplay() {
         if (!introState) animateMonolith();
 
         // ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = 'rgb(196, 130, 127)';
+        ctx.fillStyle = 'rgb(23, 36, 76)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         if (FAQ) {
