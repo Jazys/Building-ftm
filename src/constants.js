@@ -41,7 +41,7 @@ export default class Const {
     static get RGB15() { return [ 232, 227, 213 ] } // #e8e3d5
     static get RGB1() { return [ 0, 0, 0 ] } // #000000
     
-    static get DEFAULT_COLOR() { return [23, 32, 76] } // #28282e
+    static get DEFAULT_COLOR() { return [52, 44, 60] } // #28282e
     static get SKY_COLOR() { return [23, 32, 76] }  // #c4827f
     static get RANDOM_COLOR() { return [ Math.random()*255, Math.random()*255, Math.random()*255 ] } // #??????
     
